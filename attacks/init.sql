@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS sessions (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	first_layer_k INTEGER,
+	first_layer_n INTEGER,
+	last_layer_k INTEGER,
+	last_layer_n INTEGER,
+	start_time INTEGER,
+	end_time INTEGER,
+	sync_success INTEGER,
+	simple_success INTEGER,
+	geom_success INTEGER,
+	brute_success INTEGER,
+	majority_success INTEGER,
+	total_session_count INTEGER,
+	k TEXT,
+	n TEXT,
+	l INTEGER,
+	m INTEGER,
+	h INTEGER,
+	learn_rule TEXT,
+	scenario TEXT
+);

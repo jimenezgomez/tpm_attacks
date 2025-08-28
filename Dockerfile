@@ -1,0 +1,44 @@
+# Stage 1: Build the Go application
+FROM golang:1.23 AS builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy go.mod and go.sum files from controlserver_endpoints (where the main module resides)
+COPY attacks/go.mod controlserver_endpoints/go.sum ./tpm_attacks/
+
+
+WORKDIR /app/tpm_attacks
+# Add replace directives for local modules in go.mod
+RUN go mod edit -replace=tpm_sync=./tpm_sync
+WORKDIR /app
+
+# Copy the entire project including local modules
+COPY . .
+
+# Change directory to controlserver_endpoints
+WORKDIR /app/controlserver_endpoints
+
+# Download dependencies
+RUN go mod tidy
+
+# Build the Go application
+RUN go build -o tpm_controlserver .
+
+RUN ls -al /app
+
+# Stage 2: Create a smaller image to run the application
+FROM debian:latest
+
+# Set the working directory inside the new, smaller image
+WORKDIR /app
+
+# Copy the binary from the builder stage
+COPY --from=builder /app/controlserver_endpoints/tpm_controlserver .
+RUN ls -al .
+
+# Expose the port your app uses (change if needed)
+EXPOSE 8080
+
+# Run the Go application
+CMD ["./tpm_controlserver"]

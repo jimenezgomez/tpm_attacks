@@ -1,0 +1,36 @@
+{
+    "tpm_type": "no_overlap",
+    "max_session_count": 10,
+    "max_iterations": 1000000,
+    "max_worker_count": 4,
+    "m_configs": [1,2,3,4,5],
+    "l_configs": [3],
+    "learn_rules": [
+        "Hebbian",
+        "Anti-Hebbian",
+        "Random-Walk"
+  ],
+    "n_configs": [
+        [3,8],
+        [13,8],
+        [23,8],
+        [53,8],
+        [153,8],
+        [7,4],
+        [17,4],
+        [27,4],
+        [57,4],
+        [157,4],
+        [2,5,2],
+        [12,5,2],
+        [22,5,2],
+        [52,5,2],
+        [152,5,2],
+        [4,3,2],
+        [14,3,2],
+        [24,3,2],
+        [54,3,2],
+        [154,3,2]
+    ],
+    "klast_configs": [2,3,4]
+}
